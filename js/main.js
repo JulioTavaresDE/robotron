@@ -1,7 +1,9 @@
 const controle = document.querySelectorAll("[data-controle]")
 const estatistica = document.querySelectorAll("[data-estatistica]")
+const imgRobotron = document.getElementById("robotron") 
+var i=1
 
-console.log(estatistica)
+
 
 const pecas = {
     "bracos": {
@@ -37,6 +39,11 @@ const pecas = {
     }
 }
 
+
+imgRobotron.addEventListener("click",(evento)=>{
+    mudaImageRobo(evento.target.textContent);
+})
+
 controle.forEach((elemento)=> {
     elemento.addEventListener("click",(evento)=>{
         manipulaDados(evento.target.dataset.controle,evento.target.parentNode)
@@ -44,10 +51,40 @@ controle.forEach((elemento)=> {
     })
 })
 
+
+function mudaImageRobo(){
+     var Image_Id = document.getElementById('robotron');
+    var imgArray = new Array();
+
+    imgArray[0] = new Image();
+    imgArray[0].src = 'img/Robotron_Amarelo.png';
+
+    imgArray[1] = new Image();
+    imgArray[1].src = 'img/Robotron_Azul.png';
+
+    imgArray[2] = new Image();
+    imgArray[2].src = 'img/Robotron_Branco.png';
+    
+    imgArray[3] = new Image();
+    imgArray[3].src = 'img/Robotron_Preto.png';
+
+    imgArray[4] = new Image();
+    imgArray[4].src = 'img/Robotron_Rosa.png';
+
+    imgArray[5] = new Image();
+    imgArray[5].src = 'img/Robotron_Vermelho.png';
+
+    i = i + 1 
+    if(i > imgArray.length - 1){
+        i = 0
+    }
+    document.getElementById('robotron').src = imgArray[i].src;
+}
+
 function manipulaDados(operacao,controle){
     
     const peca = controle.querySelector("[data-contador]")
-    console.log(operacao)
+
     if(operacao == "+"){
         peca.value = parseInt(peca.value) + 1
     }
@@ -60,7 +97,6 @@ function manipulaDados(operacao,controle){
 function atualizaEstatistica(peca){
 
  estatistica.forEach((elemento)=>{
-    //console.log(elemento.dataset.estatistica)
     elemento.textContent = parseInt(elemento.textContent) + pecas[peca][elemento.dataset.estatistica]
  })
 }
